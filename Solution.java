@@ -8,50 +8,54 @@ public class Solution {
     private ArrayList<String> pets;
 
     public Solution() {
-        colors = new ArrayList<String>(5);
-        nationalities = new ArrayList<String>(5);
-        cigarettes = new ArrayList<String>(5);
-        drinks = new ArrayList<String>(5);
-        pets = new ArrayList<String>(5);
+        this.colors = new ArrayList<String>(5);
+        this.nationalities = new ArrayList<String>(5);
+        this.cigarettes = new ArrayList<String>(5);
+        this.drinks = new ArrayList<String>(5);
+        this.pets = new ArrayList<String>(5);
     }
 
-    public ArrayList<String> getColors() {
-        return colors;
+    public void setCategory(Category category, ArrayList<String> value) {
+        switch (category) {
+            case COLORS:
+                colors = value;
+                break;
+            case NATIONALITIES:
+                nationalities = value;
+                break;
+            case CIGARETTES:
+                cigarettes = value;
+                break;
+            case DRINKS:
+                drinks = value;
+                break;
+            default:
+                pets = value;
+                break;
+        }
     }
 
-    public ArrayList<String> getNationalities() {
-        return nationalities;
+    public ArrayList<String>  getCategory(Category category) {
+        switch (category) {
+            case COLORS:
+                return colors;
+            case NATIONALITIES:
+                return nationalities;
+            case CIGARETTES:
+                return cigarettes;
+            case DRINKS:
+                return drinks;
+            default:
+                return pets;
+        }
     }
 
-    public ArrayList<String> getCigarettes() {
-        return cigarettes;
-    }
-
-    public ArrayList<String> getSmokes() {
-        return cigarettes;
-    }
-
-    public ArrayList<String> getPets() {
-        return pets;
-    }
-
-    public void setColors(ArrayList<String> colors) {
-        this.colors = colors;
-    }
-
-    public void setNationalities(ArrayList<String> nationalities) {
-        this.nationalities = nationalities;
-    }
-
-    public void setCigarettes(ArrayList<String> cigarettes) {
-        this.cigarettes = cigarettes;
-    }
-
-    public void setDrinks(ArrayList<String> drinks) {
-        this.drinks = drinks;
-    }
-
-    public void setPets(ArrayList<String> pets) {
-        this.pets = pets;
+    @Override
+    public String toString() {
+        return  colors +
+                "\n" + nationalities +
+                "\n" + cigarettes +
+                "\n" + drinks +
+                "\n" + pets;
     }
 }
