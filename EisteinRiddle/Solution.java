@@ -1,3 +1,5 @@
+package EisteinRiddle;
+
 import java.util.ArrayList;
 
 public class Solution {
@@ -7,7 +9,7 @@ public class Solution {
     private ArrayList<String> drinks;
     private ArrayList<String> pets;
 
-    public Solution() {
+    Solution() {
         this.colors = new ArrayList<String>(5);
         this.nationalities = new ArrayList<String>(5);
         this.cigarettes = new ArrayList<String>(5);
