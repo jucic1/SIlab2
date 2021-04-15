@@ -1,3 +1,5 @@
+package EisteinRiddle;
+
 import com.google.common.collect.Collections2;
 
 import java.util.ArrayList;
@@ -32,11 +34,11 @@ public class Domains {
     }
 
     private ArrayList<ArrayList<String>> allCombinations(ArrayList<String> possibleValues) {
-        ArrayList<ArrayList<String>> allCombinations = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> allCombinations = new ArrayList<>();
 
         Collection<List<String>> permutations = Collections2.permutations(possibleValues);
         for (List<String> permutation : permutations) {
-            allCombinations.add(new ArrayList<String>(permutation));
+            allCombinations.add(new ArrayList<>(permutation));
         }
         return allCombinations;
     }
@@ -77,7 +79,7 @@ public class Domains {
     }
 
     private ArrayList<ArrayList<String>> filterOutWhereValueNot(ArrayList<ArrayList<String>> domain, String value, int order){
-        ArrayList<ArrayList<String>> arrayAfterFilteringOut = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> arrayAfterFilteringOut = new ArrayList<>();
 
         for (ArrayList<String> combination : domain) {
             if(combination.get(order).equals(value)) {
@@ -85,5 +87,37 @@ public class Domains {
             }
         }
        return arrayAfterFilteringOut;
+    }
+
+    public void filterOutWhereValueNotLeftTo(String leftValue, String myValue, Category category) {
+        switch (category) {
+            case COLORS:
+                colorsDomain = filterOutWhereValueNotLeftTo(colorsDomain, leftValue, myValue);
+                break;
+            case NATIONALITIES:
+                nationalitiesDomain = filterOutWhereValueNotLeftTo(nationalitiesDomain, leftValue, myValue);
+                break;
+            case CIGARETTES:
+                cigarettesDomain = filterOutWhereValueNotLeftTo(cigarettesDomain, leftValue, myValue);
+                break;
+            case DRINKS:
+                drinksDomain = filterOutWhereValueNotLeftTo(drinksDomain, leftValue, myValue);
+                break;
+            default:
+                petsDomain = filterOutWhereValueNotLeftTo(petsDomain, leftValue, myValue);
+                break;
+        }
+    }
+
+    private ArrayList<ArrayList<String>> filterOutWhereValueNotLeftTo(ArrayList<ArrayList<String>> domain, String leftValue, String myValue) {
+        ArrayList<ArrayList<String>> arrayAfterFilteringOut = new ArrayList<>();
+
+        for (ArrayList<String> combination : domain) {
+            int myIndex = combination.indexOf(myValue);
+            if(myIndex!= 0 && combination.get(myIndex).equals(myValue) && combination.get(myIndex-1).equals(leftValue)) {
+                arrayAfterFilteringOut.add(combination);
+            }
+        }
+        return arrayAfterFilteringOut;
     }
 }

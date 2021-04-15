@@ -1,34 +1,49 @@
+import EisteinRiddle.*;
+import MapColoring.MapColoring;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void solveEisteinRiddle() {
         Domains domains = new Domains();
-        domains.initDomain(Category.COLORS, new ArrayList<String>(Arrays.asList("Yellow", "Blue", "Green", "White", "Red")));
-        domains.initDomain(Category.NATIONALITIES, new ArrayList<String>(Arrays.asList("English", "German", "Swedish", "Norwegian", "Danish")));
-        domains.initDomain(Category.CIGARETTES, new ArrayList<String>(Arrays.asList("Filterless", "Pipe", "Cigar", "Menthol", "Light")));
-        domains.initDomain(Category.DRINKS, new ArrayList<String>(Arrays.asList("Coffee", "Water", "Tee", "Milk", "Beer")));
-        domains.initDomain(Category.PETS, new ArrayList<String>(Arrays.asList("Horse", "Fish", "Bird", "Dog", "Cat")));
-        domains.filterOutWhereValueNot("Norwegian", 2, Category.NATIONALITIES);
+        domains.initDomain(Category.COLORS, new ArrayList<>(Arrays.asList("Yellow", "Blue", "Green", "Red", "White")));
+        domains.initDomain(Category.NATIONALITIES, new ArrayList<>(Arrays.asList("English", "German", "Swedish", "Norwegian", "Danish")));
+        domains.initDomain(Category.CIGARETTES, new ArrayList<>(Arrays.asList("Filterless", "Pipe", "Cigar", "Menthol", "Light")));
+        domains.initDomain(Category.DRINKS, new ArrayList<>(Arrays.asList("Coffee", "Water", "Tee", "Milk", "Beer")));
+        domains.initDomain(Category.PETS, new ArrayList<>(Arrays.asList("Horse", "Fish", "Bird", "Dog", "Cat")));
+        domains.filterOutWhereValueNot("Norwegian", 1, Category.NATIONALITIES);
         domains.filterOutWhereValueNot("Milk", 3, Category.DRINKS);
+        domains.filterOutWhereValueNotLeftTo("Green", "White", Category.COLORS);
 
         Constraints constraints = new Constraints();
-        constraints.addPair(Category.COLORS, "Red", Category.NATIONALITIES, "English");
-        constraints.addPair(Category.DRINKS, "Tee", Category.NATIONALITIES, "Danish");
-        constraints.addPair(Category.COLORS, "Yellow", Category.CIGARETTES, "Cigar");
-        constraints.addPair(Category.CIGARETTES, "Pipe", Category.NATIONALITIES, "German");
-        constraints.addPair(Category.CIGARETTES, "Filterless", Category.PETS, "Bird");
-        constraints.addPair(Category.NATIONALITIES, "Swedish", Category.PETS, "Dog");
-        constraints.addPair(Category.CIGARETTES, "Menthol", Category.DRINKS, "Beer");
-        constraints.addPair(Category.COLORS, "Green", Category.DRINKS, "Coffee");
-//        constraints.addLeftTo(Category.COLORS, "White", Category.COLORS, "Green");
-        constraints.addNextTo(Category.COLORS, "Blue", Category.NATIONALITIES, "Norwegian");
-        constraints.addNextTo(Category.COLORS, "Yellow", Category.PETS, "Horse");
-        constraints.addNextTo(Category.CIGARETTES, "Light", Category.DRINKS, "Water");
-        constraints.addNextTo(Category.CIGARETTES, "Light", Category.PETS, "Cat");
+        constraints.addPair(new Pair(Category.COLORS, "Red"), new Pair(Category.NATIONALITIES, "English"));
+        constraints.addPair(new Pair(Category.DRINKS, "Tee"), new Pair(Category.NATIONALITIES, "Danish"));
+        constraints.addPair(new Pair(Category.COLORS, "Yellow"), new Pair(Category.CIGARETTES, "Cigar"));
+        constraints.addPair(new Pair(Category.CIGARETTES, "Pipe"), new Pair(Category.NATIONALITIES, "German"));
+        constraints.addPair(new Pair(Category.CIGARETTES, "Filterless"), new Pair(Category.PETS, "Bird"));
+        constraints.addPair(new Pair(Category.NATIONALITIES, "Swedish"), new Pair(Category.PETS, "Dog"));
+        constraints.addPair(new Pair(Category.CIGARETTES, "Menthol"), new Pair(Category.DRINKS, "Beer"));
+        constraints.addPair(new Pair(Category.COLORS, "Green"), new Pair(Category.DRINKS, "Coffee"));
+        constraints.addNextTo(new Pair(Category.NATIONALITIES, "Norwegian"), new Pair(Category.COLORS, "Blue"));
+        constraints.addNextTo(new Pair(Category.COLORS, "Yellow"), new Pair(Category.PETS, "Horse"));
+        constraints.addNextTo(new Pair(Category.CIGARETTES, "Light"), new Pair(Category.DRINKS, "Water"));
+        constraints.addNextTo(new Pair(Category.CIGARETTES, "Light"), new Pair(Category.PETS, "Cat"));
 
-        CSP csp = new CSP(domains, constraints, new ArrayList<Category>(Arrays.asList(Category.COLORS, Category.NATIONALITIES, Category.CIGARETTES, Category.DRINKS, Category.PETS)));
-        csp.runBacktracking();
-        csp.printSolution();
+        EinsteinRiddle einsteinRiddle = new EinsteinRiddle(domains, constraints, new ArrayList<>(Arrays.asList(Category.COLORS, Category.NATIONALITIES, Category.CIGARETTES, Category.DRINKS, Category.PETS)));
+        einsteinRiddle.runBacktracking();
+        einsteinRiddle.printSolution();
+    }
+
+    public static void colorMap() {
+        MapColoring map = new MapColoring(420, 420, 5, 10);
+        map.runBacktracking();
+        map.print();
+    }
+
+    public static void main(String[] args) {
+        solveEisteinRiddle();
+
+        colorMap();
     }
 }
