@@ -30,10 +30,12 @@ public class MapColoring {
         connections = connectPoints(points);
     }
 
-    public void runBacktracking() {
+    public boolean runBacktracking() {
         if(!this.canAssignColorToPoint(0, points)) {
             System.out.println("Couldn't find combination");
+            return false;
         }
+        return true;
     }
 
     private boolean canAssignColorToPoint(int pointIndex, ArrayList<Point> points) {

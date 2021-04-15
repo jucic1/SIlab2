@@ -37,13 +37,13 @@ public class Main {
 
     public static void colorMap() {
         MapColoring map = new MapColoring(420, 420, 5, 10);
-        map.runBacktracking();
-        map.print();
+        if(map.runBacktracking()) {
+            map.print();
+        }
     }
 
     public static void main(String[] args) {
         solveEisteinRiddle();
-
         colorMap();
     }
 }
