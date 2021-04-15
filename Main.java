@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void solveEisteinRiddle() {
+    private static void solveEisteinRiddle() {
         Domains domains = new Domains();
         domains.initDomain(Category.COLORS, new ArrayList<>(Arrays.asList("Yellow", "Blue", "Green", "Red", "White")));
         domains.initDomain(Category.NATIONALITIES, new ArrayList<>(Arrays.asList("English", "German", "Swedish", "Norwegian", "Danish")));
@@ -35,7 +35,7 @@ public class Main {
         einsteinRiddle.printSolution();
     }
 
-    public static void colorMap() {
+    private static void colorMap() {
         MapColoring map = new MapColoring(420, 420, 5, 10);
         if(map.runBacktracking()) {
             map.print();
